@@ -22,7 +22,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher("WEB-INF/views/register.jsp").forward(request,response);
     }
 
     @Override
@@ -35,30 +35,23 @@ public class RegisterServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
-        String sql1 = "INSERT INTO Users VALUES(?,?,?,?,?,?)";
-        String sql2 = "SELECT * FROM Users";
-        int id;
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql1);
-            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            ResultSet rs = stmt.executeQuery(sql2);
-            rs.last();
-            int count = rs.getRow();
-            //System.out.println(count);
-            id = ++count;
-            //System.out.println(id);
-            rs.beforeFirst();
 
-            ps.setInt(1,id);
-            ps.setString(2,username);
-            ps.setString(3,password);
-            ps.setString(4,email);
-            ps.setString(5,gender);
-            ps.setDate(6, Date.valueOf(birthdate));
+        String sql = "INSERT INTO Users(username,password,email,gender,birthdate) VALUES(?,?,?,?,?)";
+        try {
+            //这里不用插id是因为在数据库的表中设置为了标识增量（自增1，第一行默认插入1）
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,username);
+            ps.setString(2,password);
+            ps.setString(3,email);
+            ps.setString(4,gender);
+            ps.setDate(5, Date.valueOf(birthdate));
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        /*out.println("       </table>");
+        out.println("   </body>");
+        out.println("</html>");*/
         out.close();
 
 

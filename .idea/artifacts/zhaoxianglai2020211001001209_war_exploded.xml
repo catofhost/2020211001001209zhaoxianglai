@@ -1,17 +1,17 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="2020211001001209zhaoxianglai:war exploded">
-    <output-path>$PROJECT_DIR$/target/LuoXianming2020211001001322-1.0-SNAPSHOT</output-path>
+  <artifact type="exploded-war" name="zhaoxianglai2020211001001209:war exploded">
+    <output-path>$PROJECT_DIR$/target/zhaoxianglai2020211001001209-1.0-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>2020211001001209zhaoxianglai</module>
+        <module>zhaoxianglai2020211001001209</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="2020211001001209zhaoxianglai" />
+          <element id="module-output" name="zhaoxianglai2020211001001209" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: javax.servlet:jsp-api:2.0" />
@@ -21,7 +21,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/zhaoxianglai2020211001001209-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="2020211001001209zhaoxianglai/web/Web" />
+      <element id="javaee-facet-resources" facet="zhaoxianglai2020211001001209/web/Web" />
     </root>
   </artifact>
 </component>

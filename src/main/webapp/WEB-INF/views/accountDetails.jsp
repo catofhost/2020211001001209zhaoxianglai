@@ -106,7 +106,7 @@
 			
 		</div>
 	</section> <!--/#cart_items-->
-	
+	//hhg
 <div id="popup_box">    <!-- OUR PopupBox DIV-->
   
     <a id="popupBoxClose">Close</a>   

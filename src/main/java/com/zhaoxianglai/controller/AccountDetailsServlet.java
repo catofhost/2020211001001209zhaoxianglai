@@ -5,6 +5,11 @@ import com.zhaoxianglai.dao.UserDao;
 import com.zhaoxianglai.model.Order;
 import com.zhaoxianglai.model.User;
 
+import com.zhaoxianglai.dao.OrderDao;
+import com.zhaoxianglai.dao.UserDao;
+import com.zhaoxianglai.model.Order;
+import com.zhaoxianglai.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +36,7 @@ public class AccountDetailsServlet extends HttpServlet {
 
         if (session!=null && session.getAttribute("user")!=null) {
             User user = (User) session.getAttribute("user");
-            int id = user.getID();
+            int id = user.getId();
             UserDao dao = new UserDao();
             try {
                 user = dao.findById(con, id);

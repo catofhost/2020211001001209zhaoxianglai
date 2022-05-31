@@ -3,63 +3,53 @@ package com.zhaoxianglai.controller;
 import com.zhaoxianglai.dao.UserDao;
 import com.zhaoxianglai.model.User;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 
-@WebServlet(name = "UpdateUserServlet", value = "/updateUser")
+@WebServlet(name = "UpdateUserServlet" ,value = "/updateUser")
 public class UpdateUserServlet extends HttpServlet {
-    Connection conn = null;
-    @Override
-    public void init() throws ServletException {
+    Connection con=null;
+    public void init() throws SecurityException, ServletException {
         super.init();
-        conn = (Connection) getServletContext().getAttribute("conn");
-    }
+        con=(Connection) getServletContext().getAttribute("con");
 
-    @Override
+    }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //forward to updateUser.jsp
         request.getRequestDispatcher("WEB-INF/views/updateUser.jsp").forward(request,response);
     }
 
-    @Override
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //get all(6) request parameters
-        String id = request.getParameter("id");
-        String username = request.getParameter("username");
+        System.out.println(1);
+        String id=request.getParameter("id");
+        String username=request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String gender = request.getParameter("gender");
-        String birthdate = request.getParameter("birthdate");
-        //create an object of User Model
-        User user = new User();
-        //set all 6 values into User Model
-        user.setId(Integer.parseInt(id));
+        String birthDate = request.getParameter("birthDate");
+        HttpSession session=request.getSession();
+        User user = (User) session.getAttribute("user");
+        //user.setID(Integer.parseInt(id));
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
         user.setGender(gender);
-        user.setBirthdate(Date.valueOf(birthdate));
-        //create an object of UserDao
+        user.setBirthdate(Date.valueOf(birthDate));
         UserDao userDao = new UserDao();
-        //call updateUser() in UserDao
-        try {
-            if (userDao.updateUser(conn,user) == 1){
-                //kill the old session
-                request.getSession(false).invalidate();//kill right now
-                //create a new session
-                HttpSession session = request.getSession();
-                session.setMaxInactiveInterval(10*60);
-                session.setAttribute("user",user);
-                //forward to userInfo.jsp
-                request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request,response);
-            }
+        try{
+            int a =  userDao.updateUser(con,user);
+            System.out.println(a);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        request.getRequestDispatcher("accountDetails").forward(request,response);
     }
 }
